@@ -1,6 +1,10 @@
 <template>
   <div class="login-container">
-    <van-nav-bar title="登录" />
+    <van-nav-bar title="登录">
+      <template #left>
+        <ToutiaoIcon icon="guanbi1" @click.native="$router.back()"></ToutiaoIcon>
+      </template>
+    </van-nav-bar>
     <van-form @submit="onSubmit" ref="from">
       <van-field
         v-model="use.mobile"
@@ -106,6 +110,8 @@ export default {
         const res = await login(this.use)
         console.log(res)
         Toast.success('登录成功')
+        this.$store.commit('setUser', res.data.data)
+        this.$router.push('/')
       } catch (e) {
         console.log(e)
         Toast.fail(e?.response?.data?.message || '登录失败')
@@ -139,6 +145,10 @@ export default {
   font-size: 20px;
   /deep/.toutiao {
     font-size: 37px;
+  }
+  /deep/.toutiao-guanbi1 {
+    font-size: 13px;
+    color: #e9e9e9;
   }
   .send-sms-btn {
     width: 152px;

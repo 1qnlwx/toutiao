@@ -8,6 +8,33 @@ const routes = [
     path: '/login',
     component: () => import('@/views/login/index.vue'),
     name: 'login'
+  },
+  {
+    path: '/demo',
+    component: () => import('@/views/demo.vue'),
+    name: 'demo'
+  },
+  {
+    path: '/',
+    component: () => import('@/views/layout/index.vue'),
+    children: [
+      {
+        path: 'home',
+        component: () => import('@/views/home/index.vue')
+      },
+      {
+        path: 'qa',
+        component: () => import('@/views/qa/index.vue')
+      },
+      {
+        path: 'video',
+        component: () => import('@/views/video/index.vue')
+      },
+      {
+        path: 'my',
+        component: () => import('@/views/my/index.vue')
+      }
+    ]
   }
 ]
 
