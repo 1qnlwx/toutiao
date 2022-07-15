@@ -19,7 +19,7 @@
             class="avatar"
             round
           />
-          <span class="name">黑马头条</span>
+          <span class="name">{{ userInfo.name }}</span>
         </div>
         <div class="right">
           <van-button type="default" size="mini" round>编辑资料</van-button>
@@ -28,19 +28,19 @@
       <!-- 粉丝、关注 -->
       <div class="data">
         <div class="data-item">
-          <span>90</span>
+          <span>{{ userInfo.art_count }}</span>
           <span>头条</span>
         </div>
         <div class="data-item">
-          <span>90</span>
+          <span>{{ userInfo.like_count }}</span>
           <span>关注</span>
         </div>
         <div class="data-item">
-          <span>90</span>
+          <span>{{ userInfo.fans_count }}</span>
           <span>粉丝</span>
         </div>
         <div class="data-item">
-          <span>90</span>
+          <span>{{ userInfo.follow_count }}</span>
           <span>获赞</span>
         </div>
       </div>
@@ -85,18 +85,25 @@
 <script>
 import { mapState } from 'vuex'
 import { Dialog } from 'vant'
+import { fetchUserInfo } from '@/api/use'
 export default {
   name: 'MyIndex',
   components: {},
   props: {},
   data() {
-    return {}
+    return {
+      userInfo: {}
+    }
   },
   computed: {
     ...mapState(['user'])
   },
   watch: {},
-  created() {},
+  created() {
+    if (this.$store?.state?.user?.token) {
+      this.getInfo()
+    }
+  },
   mounted() {},
   methods: {
     async logOut() {
@@ -111,6 +118,11 @@ export default {
       // .catch(() => {
       //   // on cancel
       // })
+    },
+    async getInfo() {
+      const res = await fetchUserInfo()
+      // console.log(res.data.data)
+      this.userInfo = res.data.data
     }
   }
 }

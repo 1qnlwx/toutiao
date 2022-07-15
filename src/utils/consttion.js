@@ -1,0 +1,2 @@
+export const CHANNELKEY = 'CHANNELKEY'
+export const HISTORYKEY = 'HISTORYKEY'

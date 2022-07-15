@@ -5,6 +5,10 @@ Vue.use(VueRouter)
 
 const routes = [
   {
+    path: '/',
+    redirect: '/home'
+  },
+  {
     path: '/login',
     component: () => import('@/views/login/index.vue'),
     name: 'login'
@@ -19,7 +23,7 @@ const routes = [
     component: () => import('@/views/layout/index.vue'),
     children: [
       {
-        path: 'home',
+        path: '/home',
         component: () => import('@/views/home/index.vue')
       },
       {
@@ -35,6 +39,17 @@ const routes = [
         component: () => import('@/views/my/index.vue')
       }
     ]
+  },
+  {
+    path: '/search',
+    component: () => import('@/views/search/index')
+  },
+  {
+    path: '/article/:articleId',
+    name: 'article',
+    component: () => import('@/views/article'),
+    // 将路由动态参数映射到组件的 props 中，更推荐这种做法
+    props: true
   }
 ]
 

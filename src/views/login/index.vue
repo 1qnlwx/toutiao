@@ -2,7 +2,10 @@
   <div class="login-container">
     <van-nav-bar title="登录">
       <template #left>
-        <ToutiaoIcon icon="guanbi1" @click.native="$router.back()"></ToutiaoIcon>
+        <ToutiaoIcon
+          icon="guanbi1"
+          @click.native="$router.back()"
+        ></ToutiaoIcon>
       </template>
     </van-nav-bar>
     <van-form @submit="onSubmit" ref="from">
@@ -106,14 +109,15 @@ export default {
     //   console.log(res)
     // }
     async onSubmit() {
+      console.log(this.use)
       try {
         const res = await login(this.use)
-        console.log(res)
+        // console.log(res)
         Toast.success('登录成功')
         this.$store.commit('setUser', res.data.data)
-        this.$router.push('/')
+        this.$router.push('/home')
       } catch (e) {
-        console.log(e)
+        // console.log(e)
         Toast.fail(e?.response?.data?.message || '登录失败')
       }
     },
@@ -121,16 +125,17 @@ export default {
       try {
         await this.$refs.from.validate('mobile')
       } catch (e) {
-        console.log(e)
+        // console.log(e)
         return
       }
       try {
-        console.log('发送验证码')
+        // console.log('发送验证码')
         this.isDisabled = true
         await getSmsCode(this.use.mobile)
         this.isCountDown = true
         Toast.success('获取验证码成功')
       } catch (e) {
+        // console.log(e)
         Toast.fail(e?.response?.data?.message || '出错了')
         // this.isCountDown = false
       } finally {

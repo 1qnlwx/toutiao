@@ -1,7 +1,7 @@
 export function getLocal(key) {
   let data = localStorage.getItem(key)
   try {
-    data = JSON.path(key)
+    data = JSON.parse(data)
   } catch (e) {
     console.log(e)
   }
